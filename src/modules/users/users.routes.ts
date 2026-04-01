@@ -1,5 +1,11 @@
 import { Router } from "express";
 
+//middlewares
+import { validate } from "../../middlewares/validate.js";
+
+//schemas
+import { createUserSchema } from "./users.schema.js";
+
 const userRoutes = Router();
 
 // GET all users
@@ -13,7 +19,8 @@ userRoutes.get("/:id", (req, res) => {
 });
 
 // POST create user
-userRoutes.post("/", (req, res) => {
+userRoutes.post("/", validate(createUserSchema), (req, res) => {
+  console.log(req.body); // dados validados e tipados
   res.json({ message: "Create user" });
 });
 
