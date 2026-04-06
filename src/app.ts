@@ -4,9 +4,15 @@ import "dotenv/config";
 
 import userRoutes from "./modules/users/users.routes.js";
 import tasksRoutes from "./modules/tasks/tasks.routes.js";
+import { pool } from "./config/database.js";
 
 const app = express();
 app.use(express.json());
+
+pool
+  .connect()
+  .then(() => console.log("Connected to the database successfully"))
+  .catch((err) => console.error("Error connecting to the database \n", err));
 
 app.use("/users", userRoutes);
 app.use("/tasks", tasksRoutes);
