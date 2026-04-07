@@ -1,37 +1,11 @@
 import { Router } from "express";
+import * as usersController from "./users.controller.ts";
+import { validateBody } from "../../middlewares/validate.ts";
+import { createUserSchema } from "./users.schema.ts";
 
-//middlewares
-import { validate } from "../../middlewares/validate.js";
+const router = Router();
 
-//schemas
-import { createUserSchema } from "./users.schema.js";
+router.get("/", usersController.getAllUsers);
+router.post("/", validateBody(createUserSchema), usersController.createNewUser);
 
-const userRoutes = Router();
-
-// GET all users
-userRoutes.get("/", (req, res) => {
-  res.json({ message: "Get all users" });
-});
-
-// GET user by ID
-userRoutes.get("/:id", (req, res) => {
-  res.json({ message: `Get user ${req.params.id}` });
-});
-
-// POST create user
-userRoutes.post("/", validate(createUserSchema), (req, res) => {
-  console.log(req.body); // dados validados e tipados
-  res.json({ message: "Create user" });
-});
-
-// PUT update user
-userRoutes.put("/:id", (req, res) => {
-  res.json({ message: `Update user ${req.params.id}` });
-});
-
-// DELETE user
-userRoutes.delete("/:id", (req, res) => {
-  res.json({ message: `Delete user ${req.params.id}` });
-});
-
-export default userRoutes;
+export default router;

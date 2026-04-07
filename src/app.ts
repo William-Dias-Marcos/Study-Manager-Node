@@ -2,9 +2,10 @@ import express from "express";
 
 import "dotenv/config";
 
-import userRoutes from "./modules/users/users.routes.js";
-import tasksRoutes from "./modules/tasks/tasks.routes.js";
-import { pool } from "./config/database.js";
+import userRoutes from "./modules/users/users.routes.ts";
+import tasksRoutes from "./modules/tasks/tasks.routes.ts";
+import { pool } from "./config/database.ts";
+import { errorHandler } from "./middlewares/errorHandler.ts";
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,8 @@ pool
 
 app.use("/users", userRoutes);
 app.use("/tasks", tasksRoutes);
+
+app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
