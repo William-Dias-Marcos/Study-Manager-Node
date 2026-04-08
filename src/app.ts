@@ -3,7 +3,6 @@ import express from "express";
 import "dotenv/config";
 
 import authRoutes from "./modules/auth/auth.routes.ts";
-import userRoutes from "./modules/users/users.routes.ts";
 import tasksRoutes from "./modules/tasks/tasks.routes.ts";
 import { pool } from "./config/database.ts";
 import { errorHandler } from "./shared/middlewares/errorHandler.ts";
@@ -17,9 +16,8 @@ pool
   .then(() => console.log("Connected to the database successfully"))
   .catch((err) => console.error("Error connecting to the database \n", err));
 
-app.use("/auth", authRoutes);
-app.use("/users", userRoutes);
-app.use("/tasks", authMiddleware, tasksRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/tasks", authMiddleware, tasksRoutes);
 
 app.use(errorHandler);
 

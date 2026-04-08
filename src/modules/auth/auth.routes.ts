@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { loginUser } from "./auth.controller.ts";
+import * as authController from "./auth.controller.ts";
 import { validateBody } from "../../shared/middlewares/validate.ts";
-import { loginSchema } from "./auth.schema.ts";
+import { registerSchema, loginSchema } from "./auth.schema.ts";
 
 const router = Router();
 
-router.post("/", validateBody(loginSchema), loginUser);
+router.post("/login", validateBody(loginSchema), authController.login);
+router.post("/register", validateBody(registerSchema), authController.register);
 
 export default router;
