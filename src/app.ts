@@ -6,8 +6,8 @@ import authRoutes from "./modules/auth/auth.routes.ts";
 import userRoutes from "./modules/users/users.routes.ts";
 import tasksRoutes from "./modules/tasks/tasks.routes.ts";
 import { pool } from "./config/database.ts";
-import { errorHandler } from "./middlewares/errorHandler.ts";
-import { authMiddleware } from "./middlewares/auth.ts";
+import { errorHandler } from "./shared/middlewares/errorHandler.ts";
+import { authMiddleware } from "./shared/middlewares/auth.ts";
 
 const app = express();
 app.use(express.json());

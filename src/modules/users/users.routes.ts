@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as usersController from "./users.controller.ts";
-import { validateBody } from "../../middlewares/validate.ts";
+import { validateBody } from "../../shared/middlewares/validate.ts";
 import { createUserSchema } from "./users.schema.ts";
 
 const router = Router();

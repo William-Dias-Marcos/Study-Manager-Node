@@ -1,7 +1,7 @@
 import { pool } from "../../config/database.ts";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { User } from "../../types/user.ts";
+import { User } from "../../shared/types/user.ts";
 
 export const login = async (email: string, password: string) => {
   const { rows } = await pool.query<User>(
