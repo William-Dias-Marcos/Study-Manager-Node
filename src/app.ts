@@ -2,10 +2,12 @@ import express from "express";
 
 import "dotenv/config";
 
+import authRoutes from "./modules/auth/auth.routes.ts";
 import userRoutes from "./modules/users/users.routes.ts";
 import tasksRoutes from "./modules/tasks/tasks.routes.ts";
 import { pool } from "./config/database.ts";
 import { errorHandler } from "./middlewares/errorHandler.ts";
+import { authMiddleware } from "./middlewares/auth.ts";
 
 const app = express();
 app.use(express.json());
@@ -15,8 +17,9 @@ pool
   .then(() => console.log("Connected to the database successfully"))
   .catch((err) => console.error("Error connecting to the database \n", err));
 
+app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
-app.use("/tasks", tasksRoutes);
+app.use("/tasks", authMiddleware, tasksRoutes);
 
 app.use(errorHandler);
 
